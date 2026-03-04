@@ -1,0 +1,242 @@
+MySQL Shell 9.6.0
+
+Copyright (c) 2016, 2026, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  SQL > \connect --mc root@local@host
+Invalid URI: Illegal character [@] found at position 10
+\connect [--mx|--mysqlx|--mc|--mysql] [--ssh <sshuri>] <URI>
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > \ create database tbd_exa1
+Unknown command: '\ create database tbd_exa1'
+ MySQL  localhost:3306 ssl  SQL > create database tbd_exa1;
+Query OK, 1 row affected (0.0116 sec)
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| taller1            |
+| tbd_exa1           |
++--------------------+
+6 rows in set (0.0046 sec)
+ MySQL  localhost:3306 ssl  SQL > use tdb_exa1
+MySQL Error 1049: Unknown database 'tdb_exa1'
+ MySQL  localhost:3306 ssl  SQL > use tdb_exa1;
+MySQL Error 1049: Unknown database 'tdb_exa1'
+ MySQL  localhost:3306 ssl  SQL > use tbd_exa1;
+Default schema set to `tbd_exa1`.
+Fetching global names, object names from `tbd_exa1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table profesores(idporfesor int auto_increment key,
+                                         -> nombre varchar(50), colegio varchar(50));
+Query OK, 0 rows affected (0.0412 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > drop profesores;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'profesores' at line 1
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > \drop profesores;
+Unknown command: '\drop profesores;'
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table profesores(idporfesor int auto_increment key,  nombre varchar(50), apellido varchar(50), colegio varchar(50));
+ERROR: 1050 (42S01): Table 'profesores' already exists
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > drop table profesores;
+Query OK, 0 rows affected (0.0235 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table profesores(idporfesor int auto_increment key,  nombre varchar(50), apellido varchar(50), colegio varchar(50));
+Query OK, 0 rows affected (0.0294 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > insert into profesores(nombre, apellido, colegio) values("Juan","Perez",
+                                         -> "C.P. Cervantes");
+Query OK, 1 row affected (0.0115 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > insert into profesores(nombre, apellido, colegio) values("Juan","Perez", "C.P. Cervantes");
+Query OK, 1 row affected (0.0082 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > insert into profesores(nombre, apellido, colegio) values("Alicia","Garcia", "C.P. Cervantes"),("Andres","Fernandez", "C.P. Cervantes"), ("Juan","Mendez", "C.P. Quevedo");
+Query OK, 3 rows affected (0.0072 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > show table profesores;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'profesores' at line 1
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > show create table profesores;
++------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table      | Create Table                                                                                                                                                                                                                                                                                               |
++------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| profesores | CREATE TABLE `profesores` (
+  `idporfesor` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) DEFAULT NULL,
+  `apellido` varchar(50) DEFAULT NULL,
+  `colegio` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`idporfesor`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.0042 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > select * from profesores;
++------------+--------+-----------+----------------+
+| idporfesor | nombre | apellido  | colegio        |
++------------+--------+-----------+----------------+
+|          1 | Juan   | Perez     | C.P. Cervantes |
+|          2 | Juan   | Perez     | C.P. Cervantes |
+|          3 | Alicia | Garcia    | C.P. Cervantes |
+|          4 | Andres | Fernandez | C.P. Cervantes |
+|          5 | Juan   | Mendez    | C.P. Quevedo   |
++------------+--------+-----------+----------------+
+5 rows in set (0.0012 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table asignaturas-aulas;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-aulas' at line 1
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table asignaturas-aulas(idasignatura int auto_increment key,  nombre asignatura varchar(50), aula varchar(2), curso varchar(50), idprofesor) ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-aulas(idasignatura int auto_increment key,  nombre asignatura varchar(50), aula' at line 1
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table asignaturas-aulas(idasignatura int auto_increment key,  nombre asignatura varchar(50), aula varchar(2), curso varchar(50), idprofesor int) ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-aulas(idasignatura int auto_increment key,  nombre asignatura varchar(50), aula' at line 1
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table Asignaturas_Aulas (
+
+                                         ->
+                                         ->     ID_Asignatura int key,
+                                         ->
+                                         ->     Nombre_Asignatura varchar(150) not null,
+                                         ->
+                                         ->     Aula varchar(20),
+                                         ->
+                                         ->     Curso vatchar(50),
+                                         ->
+                                         ->     idprofesor int not null);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'vatchar(50),
+
+    idprofesor int not null)' at line 9
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table Asignaturas_Aulas ( ID_Asignatura int auto_increment key, Nombre_Asignatura varchar(150) not null, Aula varchar(20), Curso vatchar(50), idprofesor int not null);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'vatchar(50), idprofesor int not null)' at line 1
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table Asignaturas_Aulas ( ID_Asignatura int auto_increment key, Nombre_Asignatura varchar(150) not null, Aula varchar(20), Curso varchar(50), idprofesor int not null);
+Query OK, 0 rows affected (0.0271 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > insert into Asignaturas_Aulas (ID_Asignatura, Nombre_Asignatura, Aula, Curso, idprofesor) VALUES
+                                         ->
+                                         -> (101, 'Pensamiento Lógico', '1.A01', '1er Grado', 1),
+                                         ->
+                                         -> (102, 'Escritura', '1.A01', '1er Grado', 1),
+                                         ->
+                                         -> (103, 'Pensamiento Numérico', '1.A01', '1er Grado', 1),
+                                         ->
+                                         -> (104, 'Pensamiento Espacial...', '1.B01', '1er Grado', 2);
+Query OK, 4 rows affected (0.0095 sec)
+
+Records: 4  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > show create table asiignaturas_aulas;
+ERROR: 1146 (42S02): Table 'tbd_exa1.asiignaturas_aulas' doesn't exist
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > show create table asignaturas_aulas;
++-------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table             | Create Table                                                                                                                                                                                                                                                                                                                                             |
++-------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| asignaturas_aulas | CREATE TABLE `asignaturas_aulas` (
+  `ID_Asignatura` int NOT NULL AUTO_INCREMENT,
+  `Nombre_Asignatura` varchar(150) NOT NULL,
+  `Aula` varchar(20) DEFAULT NULL,
+  `Curso` varchar(50) DEFAULT NULL,
+  `idprofesor` int NOT NULL,
+  PRIMARY KEY (`ID_Asignatura`)
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.0020 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > select * from asignaturas_aulas;
+
++---------------+-------------------------+-------+-----------+------------+
+| ID_Asignatura | Nombre_Asignatura       | Aula  | Curso     | idprofesor |
++---------------+-------------------------+-------+-----------+------------+
+|           101 | Pensamiento Lógico      | 1.A01 | 1er Grado |          1 |
+|           102 | Escritura               | 1.A01 | 1er Grado |          1 |
+|           103 | Pensamiento Numérico    | 1.A01 | 1er Grado |          1 |
+|           104 | Pensamiento Espacial... | 1.B01 | 1er Grado |          2 |
++---------------+-------------------------+-------+-----------+------------+
+4 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table Editoriales (ID_Editorial int key, Nombre_Editorial VARCHAR(100) NOT NULL
+                                         ->
+                                         -> );
+Query OK, 0 rows affected (0.0262 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > insert into Editoriales (ID_Editorial, Nombre_Editorial) values (20, 'Graó'), (21, 'Técnicas Rubio'), (22, 'Prentice Hall');
+Query OK, 3 rows affected (0.0042 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > show create table editoriales;
++-------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table       | Create Table                                                                                                                                                                                              |
++-------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| editoriales | CREATE TABLE `editoriales` (
+  `ID_Editorial` int NOT NULL,
+  `Nombre_Editorial` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID_Editorial`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > select * from editoriales;
++--------------+------------------+
+| ID_Editorial | Nombre_Editorial |
++--------------+------------------+
+|           20 | Graó             |
+|           21 | Técnicas Rubio   |
+|           22 | Prentice Hall    |
++--------------+------------------+
+3 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table Libros (ID_Libro int key, Titulo_Libro varchar(255) not null, ID_Editorial int);
+Query OK, 0 rows affected (0.0231 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > insert into Libros (ID_Libro, Titulo_Libro, ID_Editorial) values (501, 'Aprender y enseñar...', 20), (502, 'Preescolar Rubio N56', 21), (503, 'Educación Infantil N9', 22);
+Query OK, 3 rows affected (0.0101 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > show create table libro;
+ERROR: 1146 (42S02): Table 'tbd_exa1.libro' doesn't exist
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > show create table libros;
++--------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table  | Create Table                                                                                                                                                                                                                |
++--------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| libros | CREATE TABLE `libros` (
+  `ID_Libro` int NOT NULL,
+  `Titulo_Libro` varchar(255) NOT NULL,
+  `ID_Editorial` int DEFAULT NULL,
+  PRIMARY KEY (`ID_Libro`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++--------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.0021 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > select * from libros;
++----------+-----------------------+--------------+
+| ID_Libro | Titulo_Libro          | ID_Editorial |
++----------+-----------------------+--------------+
+|      501 | Aprender y enseñar... |           20 |
+|      502 | Preescolar Rubio N56  |           21 |
+|      503 | Educación Infantil N9 |           22 |
++----------+-----------------------+--------------+
+3 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table Prestamos ( ID_Prestamo int key, ID_Asignatura int, ID_Libro int,
+                                         ->
+                                         -> Fecha_Prestamo date);
+Query OK, 0 rows affected (0.0357 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > insert into Prestamos (ID_Prestamo, ID_Asignatura, ID_Libro, Fecha_Prestamo) VALUES
+                                         ->
+                                         -> (1, 101, 501, '2010-09-09'),
+                                         ->
+                                         -> (2, 102, 502, '2010-05-05');
+Query OK, 2 rows affected (0.0067 sec)
+
+Records: 2  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > show create table prestamos;
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table                                                                                                                                                                                                                                                       |
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| prestamos | CREATE TABLE `prestamos` (
+  `ID_Prestamo` int NOT NULL,
+  `ID_Asignatura` int DEFAULT NULL,
+  `ID_Libro` int DEFAULT NULL,
+  `Fecha_Prestamo` date DEFAULT NULL,
+  PRIMARY KEY (`ID_Prestamo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > select * from prestamos;
++-------------+---------------+----------+----------------+
+| ID_Prestamo | ID_Asignatura | ID_Libro | Fecha_Prestamo |
++-------------+---------------+----------+----------------+
+|           1 |           101 |      501 | 2010-09-09     |
+|           2 |           102 |      502 | 2010-05-05     |
++-------------+---------------+----------+----------------+
+2 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL >
