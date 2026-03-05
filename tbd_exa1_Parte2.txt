@@ -1,0 +1,156 @@
+MySQL Shell 9.6.0
+
+Copyright (c) 2016, 2026, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 9
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > drop database tbd_exa1;
+Query OK, 5 rows affected (0.0685 sec)
+ MySQL  localhost:3306 ssl  SQL > create databases tbd_exa1;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databases tbd_exa1' at line 1
+ MySQL  localhost:3306 ssl  SQL > create database tbd_exa1;
+Query OK, 1 row affected (0.0146 sec)
+ MySQL  localhost:3306 ssl  SQL > create table Colegios (id_colegio int key auto_increment not null, nombre_colegio varchar(100) not null);
+ERROR: 1046 (3D000): No database selected
+ MySQL  localhost:3306 ssl  SQL > use tbd_exa1
+Default schema set to `tbd_exa1`.
+Fetching global names, object names from `tbd_exa1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table Colegios (id_colegio int key auto_increment not null, nombre_colegio varchar(100) not null);
+Query OK, 0 rows affected (0.0364 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table editoriales (id_editorial int key auto_increment not null, nombre_editorial varchar(100) not null);
+Query OK, 0 rows affected (0.0349 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table profesores (id_profesor int key auto_increment not null, nombre_profesor varchar(100) not null, id_colegio int not null);
+Query OK, 0 rows affected (0.0331 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table libros ( id_libro int key auto_increment not null, titulo varchar(255) not null, id_editorial int not null);
+Query OK, 0 rows affected (0.0202 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > create table prestamos (id_prestamo int key not null auto_increment,  id_profesor int,  id_libro int, asignatura varchar(100), aula varchar(20), curso varchar(50), fecha_prestamo date);
+Query OK, 0 rows affected (0.0356 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > insert into colegios (nombre_colegio) values ('c.p cervantes'), ('c.p quevedo');
+Query OK, 2 rows affected (0.0086 sec)
+
+Records: 2  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > insert into editoriales (nombre_editorial) values ('graó'), ('técnicas rubio'), ('prentice hall'), ('temas de hoy');
+Query OK, 4 rows affected (0.0048 sec)
+
+Records: 4  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > insert into profesores (nombre_profesor, id_colegio) values ('juan pérez', 1), ('alicia garcía', 1), ('andrés fernández', 1), ('juan méndez', 2);
+Query OK, 4 rows affected (0.0080 sec)
+
+Records: 4  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > insert into libros (titulo, id_editorial) values ('aprender y enseñar en educación infantil', 1), ('preescolar rubio,n56', 2), ('educación infantil n9', 3), ('saber educar: guía para padres y profesores', 4);
+Query OK, 4 rows affected (0.0075 sec)
+
+Records: 4  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > ^C
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > insert into prestamos (id_profesor, id_libro, asignatura, aula, curso, fecha_prestamo) values (1, 1, 'pensamiento lógico', '1.a01', '1er grado', '2010-09-09'), (1, 2, 'escritura', '1.a01', '1er grado', '2010-05-05'), (1, 1, 'pensamiento numérico', '1.a01', '1er grado', '2010-05-05'), (2, 3, 'pensamiento espacial, temporal y causal', '1.b01', '1er grado', '2010-05-06'), (2, 1, 'pensamiento numérico', '1.b01', '1er grado', '2010-05-06'), (3, 1, 'escritura', '1.a01', '2do grado', '2010-09-09'), (3, 4, 'ingles', '1.a01', '2do grado', '2010-05-05'), (4, 4, 'pensamiento lógico', '2.b01', '1er grado', '2010-12-18'), (4, 1, 'pensamiento numérico', '2.b01', '1er grado', '2010-05-06');
+Query OK, 9 rows affected (0.0064 sec)
+
+Records: 9  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > select * from colegios;
++------------+----------------+
+| id_colegio | nombre_colegio |
++------------+----------------+
+|          1 | c.p cervantes  |
+|          2 | c.p quevedo    |
++------------+----------------+
+2 rows in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > select * from editoriales;
++--------------+------------------+
+| id_editorial | nombre_editorial |
++--------------+------------------+
+|            1 | graó             |
+|            2 | técnicas rubio   |
+|            3 | prentice hall    |
+|            4 | temas de hoy     |
++--------------+------------------+
+4 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > select * from profesores;
++-------------+------------------+------------+
+| id_profesor | nombre_profesor  | id_colegio |
++-------------+------------------+------------+
+|           1 | juan pérez       |          1 |
+|           2 | alicia garcía    |          1 |
+|           3 | andrés fernández |          1 |
+|           4 | juan méndez      |          2 |
++-------------+------------------+------------+
+4 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > select * from libros;
++----------+---------------------------------------------+--------------+
+| id_libro | titulo                                      | id_editorial |
++----------+---------------------------------------------+--------------+
+|        1 | aprender y enseñar en educación infantil    |            1 |
+|        2 | preescolar rubio,n56                        |            2 |
+|        3 | educación infantil n9                       |            3 |
+|        4 | saber educar: guía para padres y profesores |            4 |
++----------+---------------------------------------------+--------------+
+4 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > select * from prestamos;
++-------------+-------------+----------+-----------------------------------------+-------+-----------+----------------+
+| id_prestamo | id_profesor | id_libro | asignatura                              | aula  | curso     | fecha_prestamo |
++-------------+-------------+----------+-----------------------------------------+-------+-----------+----------------+
+|           1 |           1 |        1 | pensamiento lógico                      | 1.a01 | 1er grado | 2010-09-09     |
+|           2 |           1 |        2 | escritura                               | 1.a01 | 1er grado | 2010-05-05     |
+|           3 |           1 |        1 | pensamiento numérico                    | 1.a01 | 1er grado | 2010-05-05     |
+|           4 |           2 |        3 | pensamiento espacial, temporal y causal | 1.b01 | 1er grado | 2010-05-06     |
+|           5 |           2 |        1 | pensamiento numérico                    | 1.b01 | 1er grado | 2010-05-06     |
+|           6 |           3 |        1 | escritura                               | 1.a01 | 2do grado | 2010-09-09     |
+|           7 |           3 |        4 | ingles                                  | 1.a01 | 2do grado | 2010-05-05     |
+|           8 |           4 |        4 | pensamiento lógico                      | 2.b01 | 1er grado | 2010-12-18     |
+|           9 |           4 |        1 | pensamiento numérico                    | 2.b01 | 1er grado | 2010-05-06     |
++-------------+-------------+----------+-----------------------------------------+-------+-----------+----------------+
+9 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > desc prestamos;
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| id_prestamo    | int          | NO   | PRI | NULL    | auto_increment |
+| id_profesor    | int          | YES  |     | NULL    |                |
+| id_libro       | int          | YES  |     | NULL    |                |
+| asignatura     | varchar(100) | YES  |     | NULL    |                |
+| aula           | varchar(20)  | YES  |     | NULL    |                |
+| curso          | varchar(50)  | YES  |     | NULL    |                |
+| fecha_prestamo | date         | YES  |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.0097 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > desc libros;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id_libro     | int          | NO   | PRI | NULL    | auto_increment |
+| titulo       | varchar(255) | NO   |     | NULL    |                |
+| id_editorial | int          | NO   |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+3 rows in set (0.0024 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > desc editoriales;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| id_editorial     | int          | NO   | PRI | NULL    | auto_increment |
+| nombre_editorial | varchar(100) | NO   |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.0036 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > desc colegios;
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| id_colegio     | int          | NO   | PRI | NULL    | auto_increment |
+| nombre_colegio | varchar(100) | NO   |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.0033 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL > desc profesores;
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| id_profesor     | int          | NO   | PRI | NULL    | auto_increment |
+| nombre_profesor | varchar(100) | NO   |     | NULL    |                |
+| id_colegio      | int          | NO   |     | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+3 rows in set (0.0034 sec)
+ MySQL  localhost:3306 ssl  tbd_exa1  SQL >
